@@ -64,7 +64,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UUID resolvePrimaryClinicId(UUID userId) {
         List<ClinicMembership> memberships = clinicMembershipRepository.findByUser_Id(userId);
         return memberships.stream()
-                .sorted(Comparator.comparing(m -> m.getClinicRole() != ClinicMembershipRole.CLINIC_ADMIN))
+                .sorted(Comparator.comparing(m -> m.getClinicRole() != ClinicMembershipRole.TENANT_ADMIN))
                 .map(m -> m.getClinic().getId())
                 .findFirst()
                 .orElse(null);

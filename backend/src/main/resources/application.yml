@@ -1,70 +1,73 @@
+# =========================
+# SPRING CONFIG
+# =========================
 spring:
   application:
-    name: mybooktimezon-api
+    name: mybooktimezone
 
-  flyway:
-    enabled: true
-    locations: classpath:db/migration
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
 
-  datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/mybooktimezon}
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: 9912
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    open-in-view: false
+  mail:
+    host: ${MAIL_HOST:}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
     properties:
-      hibernate:
-        format_sql: true
-        jdbc:
-          time_zone: UTC
-    show-sql: false
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
-  jackson:
-    serialization:
-      write-dates-as-timestamps: false
-
+# =========================
+# SERVER CONFIG
+# =========================
 server:
-  port: 8080
-  servlet:
-    context-path: /
+  port: ${SERVER_PORT:8090}
 
-mybooktimezon:
-  security:
-    jwt:
-      secret: ${JWT_SECRET:ChangeThisDevSecretKey_Min32Chars_LongEnough!!}
-      expiration-ms: 86400000
+# =========================
+# APP CONFIG
+# =========================
+app:
+  beauty-coach:
+    enabled: true
 
-logging:
-  config: classpath:log4j2-spring.xml
+    # 🔥 Choose provider: GEMINI / OPENAI / AUTO (AUTO prefers Gemini when GEMINI_API_KEY is set)
+    llm: ${BEAUTY_COACH_LLM:AUTO}
 
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    operations-sorter: alpha
-    tags-sorter: alpha
+    # =========================
+    # 🔑 API KEYS
+    # =========================
+    openai-api-key: ${OPENAI_API_KEY:}
+    gemini-api-key: ${GEMINI_API_KEY:}
 
----
-# In-memory H2 for quick local runs without PostgreSQL: --spring.profiles.active=h2
-spring:
-  config:
-    activate:
-      on-profile: h2
-  datasource:
-    url: jdbc:h2:mem:mybooktimezon;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
+    # =========================
+    # 🌐 BASE URLS
+    # =========================
+    openai-base-url: ${OPENAI_BASE_URL:https://api.openai.com/v1}
+    gemini-base-url: ${GEMINI_BASE_URL:https://generativelanguage.googleapis.com/v1beta/openai}
+
+    # =========================
+    # 🤖 MODELS
+    # =========================
+    openai-model: ${OPENAI_MODEL:gpt-4o-mini}
+    gemini-model: ${GEMINI_MODEL:gemini-2.5-flash}
+
+    # =========================
+    # ⚙️ AI SETTINGS
+    # =========================
+    max-tokens: ${AI_MAX_TOKENS:700}
+    temperature: ${AI_TEMPERATURE:0.65}
+
+  # =========================
+  # 🔔 NOTIFICATIONS
+  # =========================
+  notifications:
+    confirmation-email-enabled: ${BOOKING_CONFIRM_EMAIL:false}
+    day-reminder-email-enabled: ${BOOKING_REMINDER_EMAIL:false}
+    staff-cc-on-booking: ${BOOKING_STAFF_CC:false}
+    from-address: ${BOOKING_FROM_EMAIL:bookings@example.com}
+    from-name: ${BOOKING_FROM_NAME:SalonGo}
+    reminder-hour-local: 8
+    reminder-window-minutes: 50

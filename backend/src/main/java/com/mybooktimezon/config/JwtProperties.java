@@ -10,7 +10,7 @@ import org.springframework.validation.annotation.Validated;
 @Getter
 @Setter
 @Validated
-@ConfigurationProperties(prefix = "mybooktimezon.security.jwt")
+@ConfigurationProperties(prefix = "jwt")
 public class JwtProperties {
 
     @NotBlank

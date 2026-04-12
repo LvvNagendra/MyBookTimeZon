@@ -1,5 +1,13 @@
 package com.mybooktimezon.service.impl;
 
+import java.util.UUID;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mybooktimezon.common.exception.BusinessException;
 import com.mybooktimezon.common.exception.ResourceNotFoundException;
 import com.mybooktimezon.domain.entity.Clinic;
@@ -8,16 +16,12 @@ import com.mybooktimezon.repository.ClinicMembershipRepository;
 import com.mybooktimezon.repository.ClinicRepository;
 import com.mybooktimezon.security.SecurityUserPrincipal;
 import com.mybooktimezon.service.ClinicService;
+import com.mybooktimezon.service.TenantPolicyService;
 import com.mybooktimezon.web.dto.request.ClinicUpdateRequest;
 import com.mybooktimezon.web.dto.response.ClinicResponseDto;
 import com.mybooktimezon.web.mapper.ClinicMapper;
-import java.util.UUID;
+
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +32,8 @@ public class ClinicServiceImpl implements ClinicService {
     private final ClinicRepository clinicRepository;
     private final ClinicMembershipRepository clinicMembershipRepository;
     private final ClinicMapper clinicMapper;
+    
+    private final TenantPolicyService tenantPolicyService;
 
     @Override
     @Transactional(readOnly = true)
@@ -38,6 +44,9 @@ public class ClinicServiceImpl implements ClinicService {
                     clinicRepository
                             .findBySlugIgnoreCase(key)
                             .orElseThrow(() -> new ResourceNotFoundException("Clinic not found for slug: " + key));
+            if (clinic.isTenantSuspended()) {
+                throw new ResourceNotFoundException("Business not available");
+            }
             return clinicMapper.toDto(clinic);
         } catch (BusinessException ex) {
             throw ex;
@@ -75,6 +84,9 @@ public class ClinicServiceImpl implements ClinicService {
                     clinicRepository
                             .findById(clinicId)
                             .orElseThrow(() -> new ResourceNotFoundException("Clinic not found"));
+            if (principal.getRole() != UserRole.SUPER_ADMIN) {
+                tenantPolicyService.assertTenantCanOperate(clinic);
+            }
             clinicMapper.updateClinicFromRequest(request, clinic);
             clinicRepository.save(clinic);
             log.info("Clinic {} updated by user {}", clinicId, principal.getUserId());

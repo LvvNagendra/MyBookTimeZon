@@ -53,9 +53,15 @@ public class Appointment extends AuditedEntity {
     @Column(length = 32)
     private String source = "ONLINE";
 
-    @Column(columnDefinition = "CLOB")
+    @Column(columnDefinition = "TEXT")
     private String notes;
 
-    @Column(name = "customer_notes", columnDefinition = "CLOB")
+    @Column(name = "customer_notes", columnDefinition = "TEXT")
     private String customerNotes;
+
+    @Column(name = "confirmation_email_sent", nullable = false)
+    private boolean confirmationEmailSent;
+
+    @Column(name = "reminder_email_sent", nullable = false)
+    private boolean reminderEmailSent;
 }

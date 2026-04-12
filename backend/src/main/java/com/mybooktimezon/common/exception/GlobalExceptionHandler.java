@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -48,9 +49,22 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(ResponseMessageFactory.error(HttpStatus.BAD_REQUEST, msg));
     }
 
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<ResponseMessage<Void>> handleUserNotFound(UsernameNotFoundException ex) {
+        log.debug("User not found: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(ResponseMessageFactory.error(HttpStatus.UNAUTHORIZED, "Invalid email or password"));
+    }
+
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ResponseMessage<Void>> handleBadCredentials(BadCredentialsException ex) {
-        log.debug("Bad credentials: {}", ex.getMessage());
+        Throwable cause = ex.getCause();
+        log.warn(
+                "Login failed (bad credentials): {} — if using bootstrap super admin, check YAML password quoting for ! and saas.bootstrap-super-admin.force-sync-password",
+                ex.getMessage());
+        if (cause != null) {
+            log.warn("Cause: {}: {}", cause.getClass().getSimpleName(), cause.getMessage());
+        }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(ResponseMessageFactory.error(HttpStatus.UNAUTHORIZED, "Invalid email or password"));
     }

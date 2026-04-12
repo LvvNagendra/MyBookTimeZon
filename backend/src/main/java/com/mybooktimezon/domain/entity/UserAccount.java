@@ -35,4 +35,8 @@ public class UserAccount extends AuditedEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 32)
     private UserStatus status = UserStatus.ACTIVE;
+
+    /** Optional avatar: HTTPS URL or compressed data URL (see registration / PATCH profile). */
+    @Column(name = "profile_photo_data_url", columnDefinition = "TEXT")
+    private String profilePhotoDataUrl;
 }

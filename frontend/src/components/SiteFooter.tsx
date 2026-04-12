@@ -1,15 +1,29 @@
+import { Link } from "react-router-dom";
+
 export function SiteFooter() {
+  const isDev = import.meta.env.DEV;
   return (
     <footer className="site-footer" role="contentinfo">
       <div className="site-footer__inner">
-        <h2>Need help?</h2>
+        <h2>SalonGo</h2>
         <p>
-          This screen uses big buttons, short sentences, and clear steps so many people can use it easily. Clinics,
-          salons, and fitness studios all use the same simple tools.
+          <strong>Customer</strong> discovery &amp; booking · <strong>Salon hub</strong> for owners · <strong>Staff</strong>{" "}
+          schedule &amp; requests · <strong>Platform admin</strong> for tenants &amp; billing.
         </p>
-        <p>Your customers only need your booking link. They pick a time and confirm.</p>
-        <p style={{ marginTop: "1.25rem" }}>
-          <strong style={{ color: "#fff" }}>MyBookTimeZon</strong> — appointments online, made easy.
+        <p className="footer-links">
+          <Link to="/help">Help</Link>
+          <span aria-hidden> · </span>
+          <Link to="/help#go-live">Launch checklist</Link>
+          <span aria-hidden> · </span>
+          <Link to="/help#privacy">Privacy</Link>
+          <span aria-hidden> · </span>
+          <Link to="/login">Sign in</Link>
+          <span aria-hidden> · </span>
+          <Link to="/nearby">Nearby salons</Link>
+        </p>
+        <p className="text-muted small">
+          © {new Date().getFullYear()} SalonGo · Responsive · Light / dark theme
+          {isDev ? " · Dev build (mock data)" : " · Set env VITE_API_BASE_URL to your API origin for production"}
         </p>
       </div>
     </footer>

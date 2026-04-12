@@ -80,9 +80,21 @@ public class SecurityConfig {
                                                 ApiConstants.API_V1_PREFIX + "/swagger-ui.html",
                                                 ApiConstants.API_V1_PREFIX + "/swagger-ui/**")
                                         .permitAll()
+                                        .requestMatchers(HttpMethod.GET, ApiConstants.API_V1_PREFIX + "/auth/me")
+                                        .authenticated()
                                         .requestMatchers(ApiConstants.API_V1_PREFIX + "/auth/**")
                                         .permitAll()
                                         .requestMatchers(ApiConstants.API_V1_PREFIX + "/health/**")
+                                        .permitAll()
+                                        .requestMatchers(HttpMethod.GET, ApiConstants.API_V1_PREFIX + "/meta/**")
+                                        .permitAll()
+                                        .requestMatchers("/ws/**")
+                                        .permitAll()
+                                        .requestMatchers(HttpMethod.GET, ApiConstants.API_V1_PREFIX + "/public/**")
+                                        .permitAll()
+                                        .requestMatchers(HttpMethod.POST, ApiConstants.API_V1_PREFIX + "/public/**")
+                                        .permitAll()
+                                        .requestMatchers(HttpMethod.POST, ApiConstants.API_V1_PREFIX + "/beauty-coach/**")
                                         .permitAll()
                                         .requestMatchers(HttpMethod.GET, ApiConstants.API_V1_PREFIX + "/clinics/slug/**")
                                         .permitAll()
@@ -100,8 +112,9 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(
-                List.of("http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3000"));
+        // Dev: Vite may use 5173, 5174, etc.; Origin must match or browser gets 403 on API calls.
+        configuration.setAllowedOriginPatterns(
+                List.of("http://localhost:*", "http://127.0.0.1:*", "http://[::1]:*"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

@@ -34,7 +34,7 @@ public class ServiceOffering extends AuditedEntity {
     @Column(name = "tax_rate_bps")
     private Integer taxRateBps;
 
-    @Column(columnDefinition = "CLOB")
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(nullable = false)

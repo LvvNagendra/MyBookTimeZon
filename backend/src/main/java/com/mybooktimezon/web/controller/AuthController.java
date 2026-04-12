@@ -8,6 +8,7 @@ import com.mybooktimezon.security.SecurityUserPrincipal;
 import com.mybooktimezon.service.AuthService;
 import com.mybooktimezon.web.dto.request.LoginRequest;
 import com.mybooktimezon.web.dto.request.RegisterClinicRequest;
+import com.mybooktimezon.web.dto.request.RegisterCustomerRequest;
 import com.mybooktimezon.web.dto.response.AuthResponse;
 import com.mybooktimezon.web.dto.response.ProfileResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -25,7 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(ApiConstants.API_V1_PREFIX + "/auth")
-@Tag(name = "Authentication", description = "Register / login business admin; JWT returned in response body.")
+@Tag(
+        name = "Authentication",
+        description = "Register business (tenant) or customer, login; JWT returned in response body.")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -37,6 +40,14 @@ public class AuthController {
         AuthResponse data = authService.register(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ResponseMessageFactory.success(HttpStatus.CREATED, "Registration successful", data));
+    }
+
+    @PostMapping("/register-customer")
+    public ResponseEntity<ResponseMessage<AuthResponse>> registerCustomer(
+            @Valid @RequestBody RegisterCustomerRequest request) {
+        AuthResponse data = authService.registerCustomer(request);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ResponseMessageFactory.success(HttpStatus.CREATED, "Customer account created", data));
     }
 
     @PostMapping("/login")

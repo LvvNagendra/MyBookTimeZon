@@ -1,6 +1,7 @@
 package com.mybooktimezon.domain.enums;
 
 public enum ClinicMembershipRole {
-    CLINIC_ADMIN,
+	CLINIC_ADMIN,
+    TENANT_ADMIN,
     STAFF
 }

@@ -1,4 +1,6 @@
 target/
+.env
+backend/.env
 .idea/
 *.iml
 .vscode/

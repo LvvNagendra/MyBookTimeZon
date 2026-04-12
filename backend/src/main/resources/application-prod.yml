@@ -1,0 +1,56 @@
+# Production — set SPRING_DATASOURCE_* and secrets via environment / vault (never commit real passwords).
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
+  jpa:
+    hibernate:
+      # Use validate once the DB matches entities; for a first-time deploy you may set JPA_DDL_AUTO=update once.
+      ddl-auto: ${JPA_DDL_AUTO:validate}
+    open-in-view: false
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+app:
+  client:
+    url: ${APP_CLIENT_URL}
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+
+saas:
+  trial-days: ${SAAS_TRIAL_DAYS:14}
+  basic-monthly-paise: ${SAAS_BASIC_MONTHLY_PAISE:49900}
+  standard-monthly-paise: ${SAAS_STANDARD_MONTHLY_PAISE:99900}
+  premium-monthly-paise: ${SAAS_PREMIUM_MONTHLY_PAISE:149900}
+  bootstrap-super-admin:
+    # Super admin is seeded by Flyway (V2); keep disabled to avoid duplicate logic.
+    enabled: false
+
+razorpay:
+  key-id: ${RAZORPAY_KEY_ID:}
+  key-secret: ${RAZORPAY_KEY_SECRET:}
+  webhook-secret: ${RAZORPAY_WEBHOOK_SECRET:}
+
+custom:
+  mail:
+    sender: ${MAIL_SENDER:}

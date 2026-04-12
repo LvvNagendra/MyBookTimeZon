@@ -1,0 +1,5 @@
+# SalonGo — replace YOUR_DOMAIN before launch; use Disallow: / on private staging
+User-agent: *
+Allow: /
+
+# Sitemap: https://YOUR_DOMAIN/sitemap.xml

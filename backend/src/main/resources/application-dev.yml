@@ -1,0 +1,74 @@
+# Local development — PostgreSQL + Flyway + Hibernate schema updates
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/mybooktimezon
+    username: postgres
+    password: 9912
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+  mail:
+    host: smtp.gmail.com
+    port: 465
+    username: onestopsec0@gmail.com
+    password: vwvn ebup ptnm zepw
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            enable: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+    connectiontimeout: 10000
+    timeout: 10000
+    writetimeout: 10000
+
+  messages:
+    basename: custom-messages
+
+app:
+  client:
+    url: http://localhost:5173
+  beauty-coach:
+    # Same env vars as application.yml; api-key is legacy alias for openai-api-key (see BeautyCoachProperties).
+    openai-api-key: ${OPENAI_API_KEY:}
+    api-key: ${OPENAI_API_KEY:}
+    gemini-api-key: ${GEMINI_API_KEY:}
+
+jwt:
+  secret: 3Fbr8zUw5d4hCEa57MHthQkALWENIR2zkn1eT1c9tno=
+  expiration-ms: 86400000
+
+saas:
+  trial-days: 14
+  basic-monthly-paise: 49900
+  standard-monthly-paise: 99900
+  premium-monthly-paise: 149900
+  bootstrap-super-admin:
+    enabled: true
+    email: lvvnagendra99@gmail.com
+    password: Nani@143
+    name: Super Admin
+    force-sync-password: false
+
+razorpay:
+  key-id: ${RAZORPAY_KEY_ID:}
+  key-secret: ${RAZORPAY_KEY_SECRET:}
+  webhook-secret: ${RAZORPAY_WEBHOOK_SECRET:}
+
+custom:
+  mail:
+    sender: beautoadmin@beautosys.com

@@ -15,4 +15,6 @@ public class UserResponseDto {
     String name;
     UserRole role;
     UserStatus status;
+    /** Optional avatar (URL or data URL). */
+    String profilePhotoDataUrl;
 }
