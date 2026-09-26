@@ -1,0 +1,116 @@
+# =========================
+# SPRING CONFIG
+# =========================       
+spring:
+  application:
+    name: mybooktimezone
+
+  profiles:
+    # Include ,local when application-local.yml exists (Gmail SMTP — never commit that file)
+    active: ${SPRING_PROFILES_ACTIVE:dev,local}
+
+  mail:
+    host: ${MAIL_HOST:}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+# =========================
+# SERVER CONFIG
+# =========================
+server:
+  port: ${SERVER_PORT:8090}
+
+# =========================
+# APP CONFIG
+# =========================
+app:
+  beauty-coach:
+    enabled: true
+
+    # 🔥 Choose provider: GEMINI / OPENAI / AUTO (AUTO prefers Gemini when GEMINI_API_KEY is set)
+    llm: ${BEAUTY_COACH_LLM:AUTO}
+
+    # =========================
+    # 🔑 API KEYS
+    # =========================
+    openai-api-key: ${OPENAI_API_KEY:}
+    gemini-api-key: ${GEMINI_API_KEY:}
+
+    # =========================
+    # 🌐 BASE URLS
+    # =========================
+    openai-base-url: ${OPENAI_BASE_URL:https://api.openai.com/v1}
+    gemini-base-url: ${GEMINI_BASE_URL:https://generativelanguage.googleapis.com/v1beta/openai}
+
+    # =========================
+    # 🤖 MODELS
+    # =========================
+    openai-model: ${OPENAI_MODEL:gpt-4o-mini}
+    gemini-model: ${GEMINI_MODEL:gemini-3.8-flash}
+
+    # =========================
+    # ⚙️ AI SETTINGS
+    # =========================
+    max-tokens: ${AI_MAX_TOKENS:700}
+    temperature: ${AI_TEMPERATURE:0.65}
+
+  # =========================
+  # 🔔 NOTIFICATIONS
+  # =========================
+  notifications:
+    confirmation-email-enabled: ${BOOKING_CONFIRM_EMAIL:false}
+    day-reminder-email-enabled: ${BOOKING_REMINDER_EMAIL:false}
+    staff-cc-on-booking: ${BOOKING_STAFF_CC:false}
+    from-address: ${BOOKING_FROM_EMAIL:bookings@example.com}
+    from-name: ${BOOKING_FROM_NAME:SlotNexa}
+    reminder-hour-local: 8
+    reminder-window-minutes: 50
+
+  support:
+    email: ${SUPPORT_EMAIL:support@slotnexa.app}
+    privacy-url: ${PRIVACY_URL:/help#privacy}
+    terms-url: ${TERMS_URL:/help#terms}
+
+  # Google Maps Geocoding (server). Same key can power frontend Embed via VITE_GOOGLE_MAPS_API_KEY.
+  google-maps:
+    api-key: ${GOOGLE_MAPS_API_KEY:}
+
+# =========================
+# JWT (override in prod via JWT_SECRET — min 32 chars)
+# =========================
+jwt:
+  secret: ${JWT_SECRET:SlotNexaDevOnlyChangeMe_UseEnvInProd_32charsMin!}
+  expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+
+# =========================
+# SaaS subscription catalog (dynamic — used by /meta/saas-plans + checkout)
+# Demo credentials for local bootstrap (dev profile overrides email/password)
+# =========================
+saas:
+  trial-days: ${SAAS_TRIAL_DAYS:14}
+  basic-monthly-paise: ${SAAS_BASIC_MONTHLY_PAISE:49900}
+  standard-monthly-paise: ${SAAS_STANDARD_MONTHLY_PAISE:99900}
+  premium-monthly-paise: ${SAAS_PREMIUM_MONTHLY_PAISE:149900}
+  bootstrap-super-admin:
+    enabled: ${SAAS_BOOTSTRAP_SUPER_ADMIN:false}
+    email: ${SAAS_SUPER_ADMIN_EMAIL:admin@slotnexa.demo}
+    password: ${SAAS_SUPER_ADMIN_PASSWORD:SlotNexa!Admin123}
+    name: ${SAAS_SUPER_ADMIN_NAME:SlotNexa Super Admin}
+    force-sync-password: false
+
+# =========================
+# Razorpay — leave empty for mock checkout; set keys for live Orders/Checkout.js
+# Test keys example: rzp_test_… (never commit live secrets)
+# =========================
+razorpay:
+  key-id: ${RAZORPAY_KEY_ID:}
+  key-secret: ${RAZORPAY_KEY_SECRET:}
+  webhook-secret: ${RAZORPAY_WEBHOOK_SECRET:}
+  mock-checkout-enabled: ${RAZORPAY_MOCK:true}

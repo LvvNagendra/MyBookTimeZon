@@ -1,0 +1,27 @@
+# Copy to application-local.yml (gitignored) and fill in your Gmail App Password.
+# Run API with: SPRING_PROFILES_ACTIVE=dev,local
+spring:
+  config:
+    activate:
+      on-profile: local
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: your@gmail.com
+    password: "your-16-char-app-password"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+app:
+  notifications:
+    confirmation-email-enabled: true
+    from-address: your@gmail.com
+    from-name: SlotNexa
+  # Enable Geocoding API on this key for “Pin from address (Google)”
+  google-maps:
+    api-key: ${GOOGLE_MAPS_API_KEY:}

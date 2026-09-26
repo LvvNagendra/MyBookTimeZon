@@ -1,0 +1,31 @@
+{\rtf1\ansi\deff0
+{\fonttbl{\f0 Segoe UI;}{\f1 Consolas;}}
+\f0\fs24
+\b MyBookTimeZon AI Features Demo Report\b0\par
+\date 2026-09-26\par
+\par
+\b Problem statement:\b0  #1 Frontier Intelligence at Flash Speed (gemini-3.8-flash)\par
+\par
+\b Security:\b0  Do not commit API keys. Set GEMINI_API_KEY in IDE Run Configuration. Rotate any key pasted in chat.\par
+\par
+\b Test summary\par
+\b0
+1. LIST MODELS - PASS (key accepted)\par
+2. gemini-2.5-flash - FAIL 404 (use gemini-3.8-flash)\par
+3. gemini-3.8-flash generateContent - FAIL 429 quota this session\par
+4. APP beauty-coach/chat - PASS (offline heuristic without JVM env key)\par
+5. APP beauty-coach/personalize - PASS (structured tips)\par
+\par
+\b Enable live Gemini in STS\par
+\b0
+Environment: GEMINI_API_KEY, BEAUTY_COACH_LLM=GEMINI, GEMINI_MODEL=gemini-3.8-flash\par
+Restart MyBookTimeZonApplication after setting env.\par
+\par
+\b Demo UI routes\par
+\b0
+/coach, /ai-hair, /skin, public booking + WebSocket live slots\par
+\par
+\b Files\par
+\b0
+AI-Features-Demo.html, AI-Features-Demo.md, run-ai-tests.ps1\par
+}

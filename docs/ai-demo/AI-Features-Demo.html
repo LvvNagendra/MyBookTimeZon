@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MyBookTimeZon — AI Features Demo Report</title>
+  <style>
+    :root {
+      --ink: #14241f;
+      --muted: #4a635c;
+      --bg: #f3f7f5;
+      --card: #ffffff;
+      --accent: #0d6b5c;
+      --ok: #047857;
+      --warn: #b45309;
+      --bad: #b91c1c;
+      --line: #d5e3de;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Source Sans 3", system-ui, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #e8f2ef 0%, var(--bg) 220px);
+      line-height: 1.55;
+    }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    header.hero {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.75rem 1.5rem;
+      box-shadow: 0 10px 30px rgba(13, 107, 92, 0.08);
+    }
+    .badge {
+      display: inline-block;
+      background: #e6f5f2;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+    }
+    h1 { margin: 0.6rem 0 0.35rem; font-size: 1.85rem; }
+    h2 { margin-top: 2rem; color: var(--accent); font-size: 1.25rem; }
+    h3 { margin-top: 1.25rem; font-size: 1.05rem; }
+    p.lead { color: var(--muted); margin: 0; max-width: 40rem; }
+    .meta { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; color: var(--muted); font-size: 0.95rem; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.1rem 1.2rem;
+      margin-top: 1rem;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    th, td { text-align: left; padding: 0.55rem 0.45rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--muted); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .pill {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+    }
+    .pill-ok { background: #d1fae5; color: var(--ok); }
+    .pill-warn { background: #ffedd5; color: var(--warn); }
+    .pill-bad { background: #fee2e2; color: var(--bad); }
+    code, pre {
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 0.84rem;
+    }
+    pre {
+      background: #0f1f1b;
+      color: #d7ebe4;
+      padding: 0.9rem 1rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+    .warn-box {
+      border-left: 4px solid var(--warn);
+      background: #fff7ed;
+      padding: 0.75rem 1rem;
+      border-radius: 0 10px 10px 0;
+      margin: 1rem 0;
+    }
+    .ok-box {
+      border-left: 4px solid var(--ok);
+      background: #ecfdf5;
+      padding: 0.75rem 1rem;
+      border-radius: 0 10px 10px 0;
+      margin: 1rem 0;
+    }
+    ol.demo { padding-left: 1.2rem; }
+    ol.demo li { margin: 0.45rem 0; }
+    footer { margin-top: 2.5rem; color: var(--muted); font-size: 0.9rem; }
+    @media print {
+      body { background: #fff; }
+      .wrap { max-width: none; }
+      header.hero, .card { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <span class="badge">Problem statement #1 · Frontier Intelligence at Flash Speed</span>
+      <h1>MyBookTimeZon AI Features — Demo Report</h1>
+      <p class="lead">
+        End-to-end verification of Beauty Coach, personalize tips, face assist, and Gemini Flash wiring
+        for the Java Spring Boot + React booking SaaS.
+      </p>
+      <div class="meta">
+        <span><strong>Date:</strong> 2026-09-26</span>
+        <span><strong>Model target:</strong> gemini-3.8-flash</span>
+        <span><strong>API base:</strong> /api/v1/beauty-coach</span>
+      </div>
+    </header>
+
+    <div class="warn-box">
+      <strong>Security:</strong> Never commit API keys. Set <code>GEMINI_API_KEY</code> in the IDE Run Configuration only.
+      If a key was shared in chat, rotate it in Google AI Studio after the demo.
+    </div>
+
+    <h2>1. Feature matrix</h2>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Where</th>
+            <th>Test result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Beauty Coach chat</td>
+            <td><code>/coach</code> · <code>POST /beauty-coach/chat</code></td>
+            <td><span class="pill pill-ok">APP PASS</span> Offline heuristic while JVM has no key</td>
+          </tr>
+          <tr>
+            <td>Personalized suggestions</td>
+            <td><code>/ai-hair</code>, <code>/skin</code> · <code>POST /beauty-coach/personalize</code></td>
+            <td><span class="pill pill-ok">APP PASS</span> Structured tips returned</td>
+          </tr>
+          <tr>
+            <td>Face landmarker</td>
+            <td>Browser MediaPipe</td>
+            <td><span class="pill pill-ok">UI READY</span> No Gemini key required</td>
+          </tr>
+          <tr>
+            <td>Live booking slots</td>
+            <td>WebSocket <code>/ws</code></td>
+            <td><span class="pill pill-ok">PRODUCT LIVE</span> Reactive workspace story</td>
+          </tr>
+          <tr>
+            <td>Gemini list models</td>
+            <td>Google Generative Language API</td>
+            <td><span class="pill pill-ok">PASS</span> Key accepted; flash models listed</td>
+          </tr>
+          <tr>
+            <td>Gemini generateContent / OpenAI-compat</td>
+            <td><code>gemini-3.8-flash</code></td>
+            <td><span class="pill pill-warn">429 QUOTA</span> Retry after cooldown / billing</td>
+          </tr>
+          <tr>
+            <td>Deprecated model <code>gemini-2.5-flash</code></td>
+            <td>Native API</td>
+            <td><span class="pill pill-bad">404</span> New keys must use <strong>gemini-3.8-flash</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>2. What we fixed for Flash</h2>
+    <div class="ok-box">
+      Default Gemini model updated to <strong>gemini-3.8-flash</strong> in
+      <code>application.yml</code> and <code>BeautyCoachProperties</code>
+      (Google returns 404 for <code>gemini-2.5-flash</code> on new keys).
+    </div>
+
+    <h2>3. Sample app responses (this session)</h2>
+    <div class="card">
+      <h3>Chat <code>POST /api/v1/beauty-coach/chat</code></h3>
+      <pre>Request:
+{"message":"I want a short hairstyle for oval face. Give 2 tips.","history":[]}
+
+Response (envelope OK):
+Share your face-shape hint and hair concern … Offline coach — live LLM when an API key is configured.</pre>
+
+      <h3>Personalize <code>POST /api/v1/beauty-coach/personalize</code></h3>
+      <pre>Request face: Oval · thinning crown · oily T-zone
+
+suggestedHaircuts: Soft layers; Side fringe; Textured bob; Long curtain bangs
+hairHealthTips: Limit hot tools; Avoid tight ponytails; Wide-tooth comb / silk pillowcase tips
+status: OK</pre>
+    </div>
+
+    <h2>4. Enable live Gemini (STS)</h2>
+    <div class="card">
+      <ol class="demo">
+        <li>Open Run Configuration for <code>MyBookTimeZonApplication</code>.</li>
+        <li>Add environment variables:
+          <pre>GEMINI_API_KEY=&lt;your-key&gt;
+BEAUTY_COACH_LLM=GEMINI
+GEMINI_MODEL=gemini-3.8-flash</pre>
+        </li>
+        <li>Restart the app (env must be on the <code>javaw</code> process, not only PowerShell).</li>
+        <li>Call chat again — reply should no longer say “Offline coach” when quota allows.</li>
+      </ol>
+    </div>
+
+    <h2>5. Live demo script (5 minutes)</h2>
+    <div class="card">
+      <ol class="demo">
+        <li><strong>Pitch:</strong> Java SaaS where Flash helps in the background of booking + beauty coaching.</li>
+        <li>Open <code>/coach</code> — ask for oily-scalp / oval-face tips.</li>
+        <li>Open <code>/ai-hair</code> — photo/camera → face detect → personalized suggestions.</li>
+        <li>Open <code>/skin</code> — facial context → coach tips.</li>
+        <li>Show public booking + live slot updates (WebSocket) as “Flash Speed / reactive workspace”.</li>
+      </ol>
+    </div>
+
+    <h2>6. Curl / PowerShell</h2>
+    <div class="card">
+      <pre>$env:GEMINI_API_KEY = "&lt;local only&gt;"
+
+# Models
+Invoke-RestMethod "https://generativelanguage.googleapis.com/v1beta/models?key=$env:GEMINI_API_KEY"
+
+# App
+Invoke-RestMethod -Method POST http://localhost:8090/api/v1/beauty-coach/chat `
+  -ContentType "application/json" `
+  -Body '{"message":"Suggest a bob for oval face","history":[]}'
+
+# Or: docs/ai-demo/run-ai-tests.ps1</pre>
+    </div>
+
+    <footer>
+      Companion files: <code>AI-Features-Demo.md</code>, <code>run-ai-tests.ps1</code>, <code>test-results.txt</code>.
+      To create a Word document: open this HTML in Microsoft Word → Save As → Word Document (.docx).
+    </footer>
+  </div>
+</body>
+</html>

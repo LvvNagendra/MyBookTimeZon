@@ -1,0 +1,5 @@
+﻿CHAT_NATIVE|FAIL|The remote server returned an error: (429) Too Many Requests. 
+PERSONALIZE_NATIVE|FAIL|The remote server returned an error: (429) Too Many Requests. 
+CHAT_OAI_COMPAT|FAIL|The remote server returned an error: (429) Too Many Requests. 
+APP_CHAT|OK|Share your face-shape hint and hair concern (frizz, colour, thinning) and Iâll suggest salon-friendly cuts and care. This is general beauty education, not medical advice. (Offline coach â live LLM when an API key is configured.)
+APP_PERSONALIZE|OK|cuts=Soft layers; Side fringe; Textured bob; Long curtain bangs tips=Limit hot tools; apply heat protectant when you style.; Avoid tight ponytails; ask about volumizing cuts at the crown.; Wide-tooth comb on wet hair; silk or satin pillowcases can reduce friction.

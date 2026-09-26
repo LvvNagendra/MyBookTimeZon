@@ -1,0 +1,13 @@
+target/
+.env
+backend/.env
+backend/src/main/resources/application-local.yml
+**/application-local.yml
+.idea/
+*.iml
+.vscode/
+node_modules/
+dist/
+*.log
+.DS_Store
+/.metadata/
